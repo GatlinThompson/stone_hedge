@@ -3,6 +3,7 @@
 From combining two programs, a basic structure for easy logging and database coverage. As well as a simple user creation.
 This was a very infomative final. Through the concepts given in the class, I was able to know what I was looking for and delve deeper into the mechanics of it all.
 Overall, a very good class that you can explore and be creative with your work and a very good professor that provides very good feedback and help infomation to improve yourself in coding.
+I'm glad the project is done for now, through over a month of work on this project, it has been a fun ride to learn how Django works.
 </p>
 
 <h2>Preview Infomation</h2>
