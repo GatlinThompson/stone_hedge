@@ -1,0 +1,48 @@
+{%  extends 'partsdatabase/componets/base.html' %}
+{%  load static %}
+{%  block title %} Kit Details{% endblock %}
+{% block body %}
+
+    <div class="container pt-5">
+        <div class="mb-4">
+             <a href="{% url 'partsdatabase:kit' %}" class="back-link"> < Back to Kits</a>
+        </div>
+        <div class="d-flex justify-content-between">
+            <h1>{{ kit }}</h1>
+            <div>
+                {% if user.is_staff %}
+                <button class="btn btn-danger px-4 fs-4"
+                        data-submit-link="{% url 'partsdatabase:delete_kit' kit.id %}"
+                        onclick="deleteItem({{ kit.id }}, `{{ kit.name }}`, this)">
+                    Delete
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        <hr class="mb-5">
+        {% if user.is_staff %}
+            {% include 'partsdatabase/kit/kit_details_form.html' %}
+        {% else %}
+            {% include 'partsdatabase/kit/kit_info.html' %}
+        {% endif %}
+        <hr class="mb-5">
+        {% include 'partsdatabase/kit/kit_hk.html' %}
+        <hr class="mb-5">
+        {% include 'partsdatabase/kit/kit_hw.html' %}
+        <hr class="mb-5">
+        {% include 'partsdatabase/kit/kit_part.html' %}
+    </div>
+
+
+
+
+
+    {% include 'partsdatabase/componets/deletemodal.html' %}
+
+
+    <script type="text/javascript" src="{% static 'js/form_static.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/deletemodal.js' %}"></script>
+
+
+
+{% endblock %}

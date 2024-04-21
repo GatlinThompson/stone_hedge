@@ -1,0 +1,20 @@
+{% extends 'partsdatabase/componets/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'style/overview.css' %}">
+{% endblock %}
+{% block body %}
+    <section class="container">
+        <div class="dashboard ps-3 mx-5">
+            {% for item in overview %}
+                {% if 'perms' not in item %}
+                    {% include 'partsdatabase/overview/directory_item.html' with title=item.title bg_color=item.bg_color links=item.links%}
+                {% endif %}
+                {% if item.perms %}
+                     {% include 'partsdatabase/overview/directory_item.html' with title=item.title bg_color=item.bg_color links=item.links%}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

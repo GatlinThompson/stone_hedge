@@ -1,0 +1,63 @@
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header">
+      <div class="offcanvas-icon">
+          <a href="{% url 'partsdatabase:parts_db' %}"><span><i class="bi bi-heptagon-half"></i>&nbsp; Stone Hedge</span></a>
+      </div>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body px-4">
+      <div class="offcanvas-group">
+          <h2 class="offcanvas-title">Overview</h2>
+          <hr class="offcanvas-title-break">
+          <a href="{% url 'partsdatabase:parts_db' %}" class="offcanvas-link">Dashboard</a>
+      </div>
+      <div class="offcanvas-group">
+          <h2 class="offcanvas-title">Database</h2>
+          <hr class="offcanvas-title-break">
+          {% if perms.partsdatabase.add_hardware %}
+          <a href="{% url 'partsdatabase:create_hardware' %}" class="offcanvas-link">Create Hardware</a>
+          <br>
+          {% endif %}
+          <a href="{% url 'partsdatabase:hardware' %}" class="offcanvas-link">View Hardware</a>
+          <hr class="offcanvas-title-break w-75 mt-2">
+          {% if perms.partsdatabase.add_part %}
+          <a href="{% url 'partsdatabase:create_part' %}" class="offcanvas-link">Create Part</a>
+          <br>
+          {% endif %}
+          <a href="{% url 'partsdatabase:part' %}" class="offcanvas-link">View Parts</a>
+          <hr class="offcanvas-title-break w-75 mt-2">
+          {% if perms.partsdatabase.add_hardwarekit %}
+          <a href="{% url 'partsdatabase:create_harwarekit' %}" class="offcanvas-link">Create Hardware Kit</a>
+          <br>
+          {% endif %}
+          <a href="{% url 'partsdatabase:hardwarekit' %}" class="offcanvas-link">View Hardware Kits</a>
+          <hr class="offcanvas-title-break w-75 mt-2">
+          {% if perms.partsdatabase.add_kit %}
+          <a href="{% url 'partsdatabase:create_kit' %}" class="offcanvas-link">Create Kit</a>
+          <br>
+          {% endif %}
+          <a href="{% url 'partsdatabase:kit' %}" class="offcanvas-link">View Kits</a>
+      </div>
+      <div class="offcanvas-group">
+          <h2 class="offcanvas-title">Log</h2>
+          <hr class="offcanvas-title-break">
+          <a href="{% url 'partslog:log_form' %}" class="offcanvas-link">Log Item</a>
+          <br>
+          <a href="{% url 'partslog:logs' %}" class="offcanvas-link">View Logs</a>
+          <br>
+          {% if perms.partslog.change_log %}
+          <a href="{% url 'partslog:approval' %}" class="offcanvas-link">Approve Logs</a>
+          {% endif %}
+      </div>
+      {% if user.is_staff %}
+      <div class="offcanvas-group">
+          <h2 class="offcanvas-title">Users</h2>
+          <hr class="offcanvas-title-break">
+          <a href="{% url 'users:create_user' %}" class="offcanvas-link">Create User</a>
+          <br>
+          <a href="{% url 'users:users' %}" class="offcanvas-link">Manage Users</a>
+      </div>
+    {% endif %}
+  </div>
+    {%  include 'users/logout.html' %}
+</div>

@@ -1,0 +1,18 @@
+<div class="pb-3">
+    <ul class="d-flex justify-content-between pb-3" style="list-style-type: none;">
+        <li>
+            <p class="m-0 fs-5"><span class="fw-bold">Location:</span>&nbsp;{{ hardwarekit.location }}</p>
+        </li>
+        <li>
+            <p class="m-0 fs-5"><span class="fw-bold">Quantity:</span>&nbsp;{{ hardwarekit.quantity }}</p>
+        </li>
+         <li>
+            <p class="m-0 fs-5"><span class="fw-bold">Reorder Quantity:</span>&nbsp;{{ hardwarekit.reorder_quantity }}</p>
+        </li>
+        <li>
+            <p class="m-0 fs-5"><span class="fw-bold">Unit Price:</span>&nbsp;${{ hardwarekit.unit_price }}</p>
+        </li>
+    </ul>
+    <p class="fw-bold fs-4 m-0">Description:</p>
+    <p class="fs-5">{{ hardwarekit.description }}</p>
+</div>

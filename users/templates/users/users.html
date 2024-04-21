@@ -1,0 +1,59 @@
+{% extends 'partsdatabase/componets/base.html' %}
+{%  block title %}Manage Users{% endblock %}
+{% block body %}
+    <section class="container-fluid row mt-5">
+        <div class="col-xl-10 col-12 mx-auto">
+            <div class="col-12 d-flex align-content-end ">
+                <div class="col-3">
+                   <h1 class="m-0">Manage Users</h1>
+                </div>
+
+                <div class="ms-auto col search-box">
+                    {% if perms.partsdatabase.add_part %}
+                    <div>
+                        <a href="{% url 'users:create_user' %}" class="btn btn-primary px-4">Create User</a>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+            <hr class="mt-2 mb-4">
+            <table class="table table-bordered table-striped col-11 mx-auto">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Position</th>
+                        {% if user.is_superuser %}
+                            <th>Status</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in users %}
+                        {% if person.is_active  and not person.is_superuser %}
+                        <tr>
+                            <td><strong>{{ person.first_name}} {{ person.last_name }}</strong></td>
+                            <td>
+                                {{ person.email }}
+                            </td>
+                            <td>{{ person.groups.all.0 }}</td>
+
+                            {% if user.is_superuser %}
+                                <td class="text-center">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ person.id }}" id="person" name="person">
+                                    <button type="submit" class="btn btn-outline-danger">Deactivate</button>
+                                </form>
+                                </td>
+                            {% endif %}
+
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

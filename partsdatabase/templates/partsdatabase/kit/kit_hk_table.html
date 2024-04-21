@@ -1,0 +1,45 @@
+<section class="col-11 mx-auto">
+    <h2>Hardware Kits</h2>
+{% if kit.kithardwarekit_set.all %}
+<table class="table table-bordered table-striped">
+    <thead>
+        <th>Part Number</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        {% if user.is_staff %}
+        <th></th>
+        {% endif %}
+    </thead>
+    <tbody>
+        {% for hk in kit.kithardwarekit_set.all  %}
+            <tr>
+                <td><a href="{% url 'partsdatabase:details_hardwarekit' hk.hardware_kit.id %}"><strong>{{ hk.hardware_kit }}</strong></a></td>
+                <td class="table-no-overflow hardware-description" style="max-width: 300px;">{{ hk.hardware_kit.description }}</td>
+
+                <td>
+                    {% if user.is_staff %}
+                    <form action="{% url 'partsdatabase:kit_hk_edit' kit_id=kit.id hk_id=hk.id %}" method="POST" class="edit_hk_part_conts d-flex justify-content-center">
+                        {% csrf_token %}
+                        <div class="d-flex">
+                            <input type="number" class="form-control edit_hk_part fw-semibold" name="hk_qty_{{ hk.id }}" id="hk_qty_{{ hk.id }}" value="{{hk.quantity }}" min="0" >
+                            <button type="submit" class=" ms-2 btn btn-outline-success">Save</button>
+                        </div>
+                    </form>
+                    {% else %}
+                        <span class="ps-2">
+                            {{ hk.quantity }}
+                        </span>
+                    {% endif %}
+                </td>
+                {% if user.is_staff %}
+                <td><a href="{% url 'partsdatabase:kit_hk_delete' kit_id=kit.id hk_id=hk.id %}" class="btn btn-danger ms-5 delete_btn_static">Remove</a></td>
+                {%  endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <hr>
+    <p class="fs-4 text-secondary">No hardware kits currently in kit.</p>
+{% endif %}
+</section>

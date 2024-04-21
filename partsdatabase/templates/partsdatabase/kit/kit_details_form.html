@@ -1,0 +1,14 @@
+<section>
+    <form method="POST" action="{% url 'partsdatabase:update_kit' kit.id %}">
+        {%  csrf_token %}
+        {% for field in kit_form %}
+            <div class="control-form mb-2">
+                <label for="{{ field.label.lower }}" class="form-label fw-semibold">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+        <div class="my-4">
+            <button type="submit" class="btn btn-outline-success btn-lg px-3 fs-5">Save Changes</button>
+        </div>
+    </form>
+</section>

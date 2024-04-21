@@ -1,0 +1,22 @@
+<section>
+    {# Hardware Table #}
+    {% include 'partsdatabase/kit/kit_hk_table.html' %}
+    <div class="pb-3">
+        {% if user.is_staff %}
+        <form method="POST" action="{% url 'partsdatabase:kit_hk_form_submit' kit.id %}" id="hk_form">
+            {%  csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <label for="{{ kit_hk_form.hardware_kit.lower }}" class="form-label fw-semibold fs-5">Hardware Kit</label>
+                    {{ kit_hk_form.hardware_kit }}
+                </div>
+                <div class="col-2 d-flex justify-content-center align-items-end">
+                    <label for="{{ kit_hk_form.quantity.lower }}" class="form-label fw-semibold fs-5 me-2">Qty:</label>
+                    {{ kit_hk_form.quantity }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3 fs-5">Add Hardware Kit</button>
+        </form>
+        {% endif %}
+    </div>
+</section>

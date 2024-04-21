@@ -1,0 +1,32 @@
+{% extends 'partsdatabase/componets/base.html' %}
+{%  block title %}Hardware {{ crud }}{% endblock %}
+{%  block body %}
+    <div class="container pt-5">
+        <div class="mb-4">
+             <a href="{% url 'partsdatabase:hardware' %}" class="back-link"> < Back to Hardware</a>
+        </div>
+        <h1>{{ crud.title }} Hardware</h1>
+        <hr>
+        {% if last_hardware %}
+                <div>
+                    <p class="m-0 fs-5 ">Last Hardware Created: <strong>{{ last_hardware.name }}</strong></p>
+                </div>
+        {% endif %}
+        <div class="col-10 mx-auto pt-5 mb-5 pb-5">
+            <form method="POST">
+                {%  csrf_token %}
+                {{ form.errors.message }}
+                {% for field in form %}
+                    <div class="control-form mb-3">
+                         <label for="{{ field.label.lower }}" class="form-label fw-semibold fs-5">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+
+                {% endfor %}
+                <div class="mt-5">
+                    <button type="submit" class="btn btn-primary btn-lg px-3 fs-3">{{ crud }} Hardware</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

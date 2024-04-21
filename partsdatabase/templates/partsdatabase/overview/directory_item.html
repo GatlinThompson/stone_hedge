@@ -1,0 +1,21 @@
+<div class="overview is-shadowed">
+    <div class="overview-header" style="background-color: {{ bg_color }};">
+        <h3 class="mb-0">{{ title }}</h3>
+    </div>
+    <div class="overview-body">
+        {% for link in links %}
+            {% if link.perms %}
+            <div>
+                <a href="{% url link.href  %}" >{{ link.text }}</a>
+            </div>
+            {% endif %}
+        {% endfor %}
+        {% for link in links %}
+            {% if 'perms' not in link %}
+            <div>
+                <a href="{% url link.href  %}" >{{ link.text }}</a>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{% extends 'partsdatabase/componets/base.html' %}
+{%  block title %}Hardware Kit Create{% endblock %}
+{%  block body %}
+    <div class="container pt-5">
+        <div class="mb-4">
+             <a href="{% url 'partsdatabase:hardwarekit' %}" class="back-link"> < Back to Hardware Kits</a>
+        </div>
+        <h1>Create Hardwarekit</h1>
+        <hr>
+        <div class="col-10 mx-auto pt-5 mb-5 pb-5">
+            <form method="POST">
+                {%  csrf_token %}
+                {% for field in form %}
+                    <div class="control-form mb-3">
+                         <label for="{{ field.label.lower }}" class="form-label fw-semibold fs-5">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+
+                {% endfor %}
+                <div class="mt-5">
+                    <button type="submit" class="btn btn-primary btn-lg px-3 fs-3">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

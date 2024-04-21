@@ -1,0 +1,30 @@
+{% extends 'partsdatabase/componets/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'style/form.css' %}">
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="form-container mx-auto is-shadowed login-form m-4">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-div">
+                <label for="username" class="form-labl">Username</label>
+                <br>
+                <input type="text" name="username" id="username" placeholder="Username">
+            </div>
+             <div class="form-div">
+                <label for="password" class="form-labl">Password</label>
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+            <div class="form-div">
+                <button type="submit" class="form-button is-shadowed login-button">Login</button>
+            </div>
+
+
+
+        </form>
+    </div>
+</div>
+{% endblock %}

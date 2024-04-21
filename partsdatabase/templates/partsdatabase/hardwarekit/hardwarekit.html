@@ -1,0 +1,83 @@
+{% extends 'partsdatabase/componets/base.html' %}
+{% load static %}
+{%  block title %}Hardware Kits{% endblock %}
+{% block body %}
+
+    <section class="container-fluid row mt-5">
+        <div class="col-xl-10 col-12 mx-auto">
+            <div class="col-12 d-flex align-content-end ">
+                <div class="col-3">
+                   <h1 class="m-0">Hardware Kits</h1>
+                </div>
+
+                <div class="ms-auto col search-box">
+                    {% if user.is_staff %}
+                    <div>
+                        <a href="{% url 'partsdatabase:create_harwarekit' %}" class="btn btn-primary px-4">Create Hardware Kit</a>
+                    </div>
+                    {% endif %}
+                     <div>
+                         <form onsubmit="return false" class="flex-fill">
+                            <label for="search_hardwarekit_input" style="display: none;">Search Hardware Kit</label>
+                            <input type="search" placeholder="Search Hardware Kit" name="search_item_input" id="search_item_input" class="form-control">
+                        </form>
+                     </div>
+                </div>
+            </div>
+            <hr class="mt-2 mb-4">
+            <table class="table table-bordered table-striped col-11 mx-auto">
+                <thead>
+                    <tr>
+                        <th>Hardware Kit Number</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Quantity</th>
+                        <th>Reorder Point</th>
+                        <th>Unit Price</th>
+                        <th colspan="2">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for hardware_kit in hardware_kits %}
+                        <tr class="item-db-row" data-part-number="{{ hardware_kit.name }}">
+                            <td><strong>{{ hardware_kit.name }}</strong></td>
+                            <td class="table-no-overflow">
+                                {{ hardware_kit.description }}
+                            </td>
+                            <td>{{ hardware_kit.location }}</td>
+                            <td>{{ hardware_kit.quantity }}</td>
+                            <td>{{ hardware_kit.reorder_quantity }}</td>
+                            <td>${{ hardware_kit.unit_price }}</td>
+                            <td>
+                                <div class="w-100 d-flex justify-content-center">
+                                    <a href="{% url 'partsdatabase:details_hardwarekit' hardware_kit.id %}" class="btn btn-success px-4">Details</a>
+                                </div>
+                            </td>
+                            {% if user.is_staff %}
+                            <td>
+                                <div class="w-100 d-flex justify-content-center">
+                                    <button class="btn btn-danger px-4"
+                                            data-submit-link="{% url 'partsdatabase:delete_hardwarekit' hardware_kit.id %}"
+                                            onclick="deleteItem({{ hardware_kit.id }}, `{{ hardware_kit.name }}`, this)">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="no_results_found" style="display: none">
+                <h2 class="mt-5 text-center">No results found.</h2>
+            </div>
+        </div>
+    </section>
+    {% if user.is_staff %}
+    {% include 'partsdatabase/componets/deletemodal.html' %}
+    <script type="text/javascript" src="{% static 'js/deletemodal.js' %}"></script>
+    {% endif %}
+    <script type="text/javascript" src="{% static 'js/searchdb.js' %}"></script>
+
+{% endblock %}

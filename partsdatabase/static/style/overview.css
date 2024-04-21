@@ -1,0 +1,43 @@
+.overview {
+    border-radius: 10px 25px;
+    border: 1px solid #D0D0D0;
+    background-color: white;
+    max-width: 354px;
+    height: 202px;
+    flex-shrink: 0;
+    padding: 9px;
+}
+
+.overview-header {
+    max-width: 100%;
+    height: 116px;
+    flex-shrink: 0;
+    border-radius: 7px 19px 7px 7px;
+    border: 1px solid #D0D0D0;
+    padding: 13px;
+}
+
+.overview-header > h3 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 28px;
+    color: var(--white);
+}
+
+.overview-body {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 30px;
+}
+
+.overview-body  a {
+    text-decoration: none;
+    color: var(--light-blue);
+    font-size: 18px;
+    transition: all 0.4s ease;
+}
+
+.overview-body  a:hover {
+    color: var(--dark-blue);
+}

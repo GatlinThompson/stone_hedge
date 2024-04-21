@@ -1,0 +1,84 @@
+{% extends 'partsdatabase/componets/base.html' %}
+{% load static %}
+{%  block title %}Kit{% endblock %}
+{% block body %}
+
+    <section class="container-fluid row mt-5">
+        <div class="col-xl-10 col-12 mx-auto">
+            <div class="col-12 d-flex align-content-end ">
+                <div class="col-3">
+                   <h1 class="m-0">Kits</h1>
+                </div>
+
+                <div class="ms-auto col search-box">
+                    {% if user.is_staff %}
+                    <div>
+                        <a href="{% url 'partsdatabase:create_kit' %}" class="btn btn-primary px-4">Create Kit</a>
+                    </div>
+                    {% endif %}
+                     <div>
+                         <form onsubmit="return false" class="flex-fill">
+                            <label for="search_item_input" style="display: none;">Search Kit</label>
+                            <input type="search" placeholder="Search Kits" name="search_item_input" id="search_item_input" class="form-control">
+                        </form>
+                     </div>
+                </div>
+            </div>
+            <hr class="mt-2 mb-4">
+            <table class="table table-bordered table-striped col-11 mx-auto">
+                <thead>
+                    <tr>
+                        <th>Kit Number</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Quantity</th>
+                        <th>Reorder Point</th>
+                        <th>Unit Price</th>
+                        <th colspan="2">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for kit in kits %}
+                        <tr class="item-db-row" data-part-number="{{ kit.name }}">
+                            <td><strong>{{ kit.name }}</strong></td>
+                            <td class="table-no-overflow hardware-description">
+                                {{ kit.description }}
+                            </td>
+                            <td>{{ kit.location }}</td>
+                            <td>{{ kit.quantity }}</td>
+                            <td>{{ kit.reorder_quantity }}</td>
+                            <td>${{ kit.unit_price }}</td>
+                            <td>
+                                <div class="w-100 d-flex justify-content-center">
+                                    <a href="{% url 'partsdatabase:details_kit' kit.id %}" class="btn btn-success px-4">Details</a>
+                                </div>
+                            </td>
+                            {% if user.is_staff %}
+                            <td>
+                                <div class="w-100 d-flex justify-content-center">
+                                    <button class="btn btn-danger px-4"
+                                            data-submit-link="{% url 'partsdatabase:delete_kit' kit.id %}"
+                                            onclick="deleteItem({{ kit.id }}, `{{ kit.name }}`, this)">
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="no_results_found" style="display: none">
+                <h2 class="mt-5 text-center">No results found.</h2>
+            </div>
+        </div>
+    </section>
+    {% if user.is_staff %}
+    {% include 'partsdatabase/componets/deletemodal.html' %}
+    <script type="text/javascript" src="{% static 'js/deletemodal.js' %}"></script>
+    {% endif %}
+
+    <script type="text/javascript" src="{% static 'js/searchdb.js' %}"></script>
+
+{% endblock %}

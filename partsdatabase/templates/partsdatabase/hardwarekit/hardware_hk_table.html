@@ -1,0 +1,44 @@
+<section class="col-11 mx-auto">
+    <h2>Hardware</h2>
+{% if hardwarekit.hardwarekitassembly_set.all %}
+<table class="table table-bordered table-striped">
+    <thead>
+        <th>Part Number</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        {% if user.is_staff %}
+        <th></th>
+         {% endif %}
+    </thead>
+    <tbody>
+        {% for hardware in hardwarekit.hardwarekitassembly_set.all  %}
+            <tr>
+                <td><strong>{{ hardware.hardware }}</strong></td>
+                <td class="table-no-overflow hardware-description" style="max-width: 300px;">{{ hardware.hardware.description }}</td>
+                <td>
+                    {% if user.is_staff %}
+                    <form action="{% url 'partsdatabase:hardware_hk_form_edit' hardwarekit_id=hardwarekit.id hardware_id=hardware.id %}" method="POST" class="edit_hk_part_conts d-flex justify-content-center">
+                        {% csrf_token %}
+                        <div class="d-flex">
+                            <input type="number" class="form-control edit_hk_part fw-semibold" name="hardware_qty_{{ hardware.id }}" id="hardware_qty_{{ hardware.id }}" value="{{hardware.quantity }}" min="0" >
+                            <button type="submit" class=" ms-2 btn btn-outline-success">Save</button>
+                        </div>
+                    </form>
+                    {% else %}
+                        <span class="ps-2">
+                            {{ hardware.quantity }}
+                        </span>
+                    {% endif %}
+                </td>
+                {% if user.is_staff %}
+                <td><a href="{% url 'partsdatabase:hardware_hk_form_delete' hardwarekit_id=hardwarekit.id hardware_id=hardware.id %}" class="btn btn-danger ms-5 delete_btn_static">Remove</a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <hr>
+    <p class="fs-4 text-secondary">No hardware currently in hardware kit.</p>
+{% endif %}
+</section>
