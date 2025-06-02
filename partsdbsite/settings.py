@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,10 +25,10 @@ SECRET_KEY = 'django-insecure-!-o#^w44*qj%zd5q5*-5+v7^9y5kyzkq_$$c()_h-p(dp*$2-+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+APP_NAME = os.environ.get('FLY_APP_NAME')
+ALLOWED_HOSTS = ['100.27.209.172', '127.0.0.1', f"{APP_NAME}.fly.dev"]
 
-ALLOWED_HOSTS = ['100.27.209.172']
-
-
+CSRF_TRUSTED_ORIGINS = [f"https://{APP_NAME}.fly.dev"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -84,6 +85,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -119,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_URL = '..'
 
 
